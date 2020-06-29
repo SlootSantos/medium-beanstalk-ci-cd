@@ -1,3 +1,3 @@
-module github.com/SlootSantos/medium-beanstalk-ci-cd
+module github.com/slootsantos/medium-beanstalk-ci-cd
 
 go 1.13
