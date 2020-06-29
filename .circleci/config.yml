@@ -10,6 +10,5 @@ jobs:
     steps:
       - checkout
       - run: go get -d -v -t ./...
-      - run: go build main.go
-      - run: ./main
+      - run: go test -v ./...
       
