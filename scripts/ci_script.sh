@@ -48,3 +48,5 @@ aws elasticbeanstalk update-environment \
 --environment-name $YOUR_BEANSTALK_ENVIRONMENT_NAME \
 --version-label v$CIRCLE_BUILD_NUM \
 --region=$REGION
+
+exit 0
