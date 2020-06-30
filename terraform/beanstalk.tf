@@ -6,7 +6,7 @@ resource "aws_elastic_beanstalk_application" "ci_cd" {
 
 # eb environment #
 resource "aws_elastic_beanstalk_environment" "ci_cd_env" {
-  name                = "ci_cd-env"
+  name                = "ci-cd-env"
   application         = aws_elastic_beanstalk_application.ci_cd.name
   solution_stack_name = "64bit Amazon Linux 2018.03 v2.20.3 running Multi-container Docker 19.03.6-ce (Generic)"
 

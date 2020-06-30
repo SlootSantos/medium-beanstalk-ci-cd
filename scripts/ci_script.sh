@@ -15,26 +15,33 @@ echo "[default]" > $AWS_CRED_FILE
 echo -e "aws_access_key_id=$ACCESS_KEY" >> $AWS_CRED_FILE
 echo -e "aws_secret_access_key=$SECRET_KEY" >> $AWS_CRED_FILE
 
+##### setting ENV variables #####
+YOUR_BEANSTALK_APPLICATION_NAME="ci_cd"
+YOUR_BEANSTALK_ENVIRONMENT_NAME="ci-cd-env"
+REGION="us-east-1"
+ACCOUNT_ID=$(aws sts get-caller-identity | jq -r '.Account')
+#################################
+
 # the $CIRCLE_BUILD_NUM variable is provided by CircleCI via the ENV's
 # the idea here is to get a incremental version number
 # the zip's name can be anything you like
 zip -r app_v_$CIRCLE_BUILD_NUM.zip .ebextensions/ Dockerrun.aws.json
 
 # upload the ZIP file to the beanstalk bucket
-aws s3 cp ./app_v_$CIRCLE_BUILD_NUM.zip s3://elasticbeanstalk-REGION-ACCOUNT_ID/
+aws s3 cp ./app_v_$CIRCLE_BUILD_NUM.zip s3://elasticbeanstalk-$REGION-$ACCOUNT_ID/
 
 # creating a new Beanstalk version from the configuration we uploaded to s3
 aws elasticbeanstalk create-application-version \
---application-name YOUR_BEANSTALK_APPLICATION_NAME\ 
+--application-name $YOUR_BEANSTALK_APPLICATION_NAME\ 
 --version-label v$CIRCLE_BUILD_NUM \ ### => this can be anything you like, but it must be unique
 --description="New Version number $CIRCLE_BUILD_NUM" \ ### => this can also be anything you like
---source-bundle S3Bucket="elasticbeanstalk-REGION-ACCOUNT_ID",S3Key="app_v_$CIRCLE_BUILD_NUM.zip" \ ### => this specifies the location of the ZIP file we previously uploaded
+--source-bundle S3Bucket="elasticbeanstalk-$REGION-$ACCOUNT_ID",S3Key="app_v_$CIRCLE_BUILD_NUM.zip" \ ### => this specifies the location of the ZIP file we previously uploaded
 --auto-create-application \
---region=REGION
+--region=$REGION
 
 # deploying the new version to the given environment
 aws elasticbeanstalk update-environment \
---application-name YOUR_BEANSTALK_APPLICATION_NAME \
---environment-name YOUR_BEANSTALK_ENVIRONMENT_NAME \
+--application-name $YOUR_BEANSTALK_APPLICATION_NAME \
+--environment-name $YOUR_BEANSTALK_ENVIRONMENT_NAME \
 --version-label v$CIRCLE_BUILD_NUM \
---region=REGION
+--region=$REGION
