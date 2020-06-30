@@ -3,6 +3,8 @@ jobs:
   build:
     docker:
       - image: circleci/golang:1.13
+    environment:
+      AWS_PAGER: ""
     working_directory: "/go/src/github.com/{{ORG_NAME}}/{{REPO_NAME}}"
     steps:
       - checkout
