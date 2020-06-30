@@ -1,7 +1,14 @@
 package main
 
-import "log"
+import (
+	"log"
+	"net/http"
+)
 
 func main() {
-	log.Println("Hello CI/CD!")
+	http.HandleFunc("/", func(w http.ResponseWriter, req *http.Request) {
+		w.Write([]byte("Hello World"))
+	})
+
+	log.Fatal(http.ListenAndServe(":3003", nil))
 }
