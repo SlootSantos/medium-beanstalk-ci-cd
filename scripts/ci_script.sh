@@ -32,10 +32,10 @@ aws s3 cp ./app_v_$CIRCLE_BUILD_NUM.zip s3://elasticbeanstalk-$REGION-$ACCOUNT_I
 
 # creating a new Beanstalk version from the configuration we uploaded to s3
 aws elasticbeanstalk create-application-version \
---application-name $YOUR_BEANSTALK_APPLICATION_NAME \ 
---version-label v$CIRCLE_BUILD_NUM \ ### => this can be anything you like, but it must be unique
---description="New Version number $CIRCLE_BUILD_NUM" \ ### => this can also be anything you like
---source-bundle S3Bucket="elasticbeanstalk-$REGION-$ACCOUNT_ID",S3Key="app_v_$CIRCLE_BUILD_NUM.zip" \ ### => this specifies the location of the ZIP file we previously uploaded
+--application-name $YOUR_BEANSTALK_APPLICATION_NAME \
+--version-label v$CIRCLE_BUILD_NUM \
+--description="New Version number $CIRCLE_BUILD_NUM" \
+--source-bundle S3Bucket="elasticbeanstalk-$REGION-$ACCOUNT_ID",S3Key="app_v_$CIRCLE_BUILD_NUM.zip" \
 --auto-create-application \
 --region=$REGION
 
