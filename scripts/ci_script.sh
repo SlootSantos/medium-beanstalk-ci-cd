@@ -7,6 +7,9 @@ curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip
 unzip awscliv2.zip
 sudo ./aws/install
 
+## for AWS CLI v2 you need to install "less"
+sudo apt-get update && sudo apt-get install -yy less
+
 # set the credentials to the default AWS CLI configuration file
 mkdir ~/.aws # just in case the CLI did not create the file yet
 AWS_CRED_FILE=~/.aws/credentials # just in case the CLI did not create the file yet
