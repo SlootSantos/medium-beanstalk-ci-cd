@@ -34,19 +34,7 @@ zip -r app_v_$CIRCLE_BUILD_NUM.zip Dockerrun.aws.json
 aws s3 cp ./app_v_$CIRCLE_BUILD_NUM.zip s3://elasticbeanstalk-$REGION-$ACCOUNT_ID/
 
 # creating a new Beanstalk version from the configuration we uploaded to s3
-aws elasticbeanstalk create-application-version \
---application-name $YOUR_BEANSTALK_APPLICATION_NAME \
---version-label v$CIRCLE_BUILD_NUM \
---description="New Version number $CIRCLE_BUILD_NUM" \
---source-bundle S3Bucket="elasticbeanstalk-$REGION-$ACCOUNT_ID",S3Key="app_v_$CIRCLE_BUILD_NUM.zip" \
---auto-create-application \
---region=$REGION
+aws elasticbeanstalk create-application-version --application-name $YOUR_BEANSTALK_APPLICATION_NAME --version-label v$CIRCLE_BUILD_NUM --description="New Version number $CIRCLE_BUILD_NUM" --source-bundle S3Bucket="elasticbeanstalk-$REGION-$ACCOUNT_ID",S3Key="app_v_$CIRCLE_BUILD_NUM.zip" --auto-create-application --region=$REGION
 
 # deploying the new version to the given environment
-aws elasticbeanstalk update-environment \
---application-name $YOUR_BEANSTALK_APPLICATION_NAME \
---environment-name $YOUR_BEANSTALK_ENVIRONMENT_NAME \
---version-label v$CIRCLE_BUILD_NUM \
---region=$REGION
-
-exit 0
+aws elasticbeanstalk update-environment --application-name $YOUR_BEANSTALK_APPLICATION_NAME --environment-name $YOUR_BEANSTALK_ENVIRONMENT_NAME --version-label v$CIRCLE_BUILD_NUM --region=$REGION
