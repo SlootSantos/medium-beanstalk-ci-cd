@@ -8,7 +8,7 @@ unzip awscliv2.zip &> /dev/null
 sudo ./aws/install &> /dev/null
 
 ## for AWS CLI v2 you need to install "less"
-sudo apt-get update && sudo apt-get install -yy less
+sudo apt-get update && sudo apt-get -y install less
 
 # set the credentials to the default AWS CLI configuration file
 mkdir ~/.aws # just in case the CLI did not create the file yet
