@@ -28,7 +28,7 @@ ACCOUNT_ID=$(aws sts get-caller-identity | jq -r '.Account')
 # the $CIRCLE_BUILD_NUM variable is provided by CircleCI via the ENV's
 # the idea here is to get a incremental version number
 # the zip's name can be anything you like
-zip -r app_v_$CIRCLE_BUILD_NUM.zip .ebextensions/ Dockerrun.aws.json
+zip -r app_v_$CIRCLE_BUILD_NUM.zip Dockerrun.aws.json
 
 # upload the ZIP file to the beanstalk bucket
 aws s3 cp ./app_v_$CIRCLE_BUILD_NUM.zip s3://elasticbeanstalk-$REGION-$ACCOUNT_ID/
