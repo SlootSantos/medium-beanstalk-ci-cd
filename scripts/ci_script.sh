@@ -38,3 +38,5 @@ aws elasticbeanstalk create-application-version --application-name $YOUR_BEANSTA
 
 # deploying the new version to the given environment
 aws elasticbeanstalk update-environment --application-name $YOUR_BEANSTALK_APPLICATION_NAME --environment-name $YOUR_BEANSTALK_ENVIRONMENT_NAME --version-label v$CIRCLE_BUILD_NUM --region=$REGION
+
+exit 0
