@@ -4,7 +4,7 @@
 # inflates it
 # and sets location to the path
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-unzip awscliv2.zip
+unzip awscliv2.zip &> /dev/null
 sudo ./aws/install &> /dev/null
 
 ## for AWS CLI v2 you need to install "less"
