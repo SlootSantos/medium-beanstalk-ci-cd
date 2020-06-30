@@ -11,6 +11,6 @@ jobs:
       - checkout
       - run: go get -d -v -t ./...
       - run: go test -v ./...
-      - run: ./ci_script.sh
+      - run: ./scripts/ci_script.sh
       - run: ls
       
